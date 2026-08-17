@@ -26,18 +26,31 @@ class GameBoard {
     return matrix
   }
 
-  // eslint-disable-next-line no-unused-vars
-  _validatePlacement(ship, col, row, isVerical = false) {
-    return true // for now
+  _validatePlacement(ship, col, row, isVertical = false) {
+    // two cases of unvalid placement 
+    // 1 - the ship is out of grid range
+
+    // horizontal : ship.length <= (10 - col)
+    if (!isVertical && ship.length > (10 - col)) return false
+    // vertical : ship.length <= (10 - row)  
+    if (isVertical && ship.length > (10 - row)) return false
+
+    // 2 - the ship is crossing with other ship already in the grid
+    for (let i = 0; i < ship.length; i++) {
+      if (!isVertical && this.matrix[row][col+i].ship) return false
+      if (isVertical && this.matrix[row+i][col].ship) return false
+    }
+
+    return true
   }
 
-  placeShip(ship, col, row, isVerical = false) {
-    if (!this._validatePlacement(ship, col, row, isVerical)) {
+  placeShip(ship, col, row, isVertical = false) {
+    if (!this._validatePlacement(ship, col, row, isVertical)) {
       throw new Error("Wrong Placement")
     }
     
     for (let i = 0; i < ship.length; i++) {
-      if (!isVerical) this.matrix[row][col+i].ship = ship
+      if (!isVertical) this.matrix[row][col+i].ship = ship
       else this.matrix[row+i][col].ship = ship
     }
 
