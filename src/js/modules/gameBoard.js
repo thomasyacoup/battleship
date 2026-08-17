@@ -27,12 +27,12 @@ class GameBoard {
   }
 
   // eslint-disable-next-line no-unused-vars
-  _checkPlacement(ship, col, row, isVerical = false) {
+  _validatePlacement(ship, col, row, isVerical = false) {
     return true // for now
   }
 
   placeShip(ship, col, row, isVerical = false) {
-    if (!this._checkPlacement(ship, col, row, isVerical)) {
+    if (!this._validatePlacement(ship, col, row, isVerical)) {
       throw new Error("Wrong Placement")
     }
     
