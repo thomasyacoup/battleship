@@ -7,6 +7,7 @@ class GameBoard {
 
   constructor(Cell) {
     this.matrix = this._createMatrix(Cell)
+    this.ships = []
   }
 
   _createMatrix(Cell) {
@@ -48,6 +49,8 @@ class GameBoard {
     if (!this._validatePlacement(ship, col, row, isVertical)) {
       throw new Error("Wrong Placement")
     }
+
+    this.ships.push(ship)
     
     for (let i = 0; i < ship.length; i++) {
       if (!isVertical) this.matrix[row][col+i].ship = ship
