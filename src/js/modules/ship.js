@@ -34,4 +34,8 @@ class Submarine extends Ship {
   }
 }
 
-export { Carrier, Battleship, Destroyer, Submarine }
+function getStarterShips() {
+  return [new Carrier(), new Battleship(), new Destroyer(), new Destroyer(), new Submarine(), new Submarine()]
+}
+
+export default getStarterShips
