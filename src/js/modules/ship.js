@@ -4,6 +4,10 @@ class Ship {
     this.health = length
   }
 
+  isSunk() {
+    return this.health == 0 ? true : false
+  }
+  
   damage() {
     if (this.health == 0) throw new Error("This ship is already destoryed")
     this.health--
