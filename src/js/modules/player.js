@@ -9,12 +9,7 @@ class Player {
   }
 
   placeShip(ship, col, row, isVertical = false) {
-    try {
-      this.gameBoard.placeShip(ship, col, row, isVertical)
-      this.gameBoard.filter(item => item != ship)
-    } catch {
-      console.log("Wrong placement")
-    }
+    this.gameBoard.placeShip(ship, col, row, isVertical)
   }
 }
 
