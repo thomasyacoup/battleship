@@ -13,4 +13,30 @@ class Player {
   }
 }
 
-export default Player
+class ComputerPlayer extends Player {
+  
+  randomShipPlacement(ship) {
+    try {
+      const isVertical = Math.random() < 0.5
+      const row        = Math.floor(Math.random() * 10)
+      const col        = Math.floor(Math.random() * 10)
+
+      this.placeShip(ship, col, row, isVertical)
+    } catch {
+      this.randomShipPlacement(ship)
+    }
+  }
+
+  randomAllShipsPlacement() {
+    this.ships.forEach(ship => this.randomShipPlacement(ship))
+  }
+
+  randomAttack(otherPlayer) {
+    const row = Math.floor(Math.random() * 10)
+    const col = Math.floor(Math.random() * 10)
+
+    this.attack(otherPlayer, col, row)
+  }
+}
+
+export { Player, ComputerPlayer }
