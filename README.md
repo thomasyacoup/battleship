@@ -1,4 +1,4 @@
-# Battleship
+# Battleship [(play)](https://thomasyacoup.github.io/battleship/)
 
 A vanilla JavaScript implementation of the classic [Battleship](https://en.wikipedia.org/wiki/Battleship_(game)) game, built as a learning project for practicing **OOP fundamentals and SOLID principles**.
 
