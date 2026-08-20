@@ -8,6 +8,7 @@ module.exports = {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
+    publicPath: "/battleship/"
   },
   devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'eval-source-map',
   devServer: {
