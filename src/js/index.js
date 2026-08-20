@@ -13,7 +13,7 @@ function initPlacementPhase(player, computerPlayer, onPlacementComplete) {
   const changeDirectionsBtn = document.getElementById("changeDirectionsBtn")
   const startGameBtn = document.getElementById("startGameBtn")
 
-  startGameBtn.disabled = true 
+  startGameBtn.disabled = true
 
   // toggling vertical mode logic
   let isVertical = false
@@ -89,7 +89,14 @@ function initBattlePhase(player, computerPlayer) {
 
   function endGame(winnerName) {
     isGameOver = true
-    alert(`${winnerName} wins!`)
+
+    const overlay = document.getElementById("game-over-overlay")
+    const messageEl = document.getElementById("game-over-message")
+
+    messageEl.textContent = `${winnerName} Wins!`
+    overlay.classList.toggle("winner", winnerName === "Player")
+    overlay.classList.toggle("loser", winnerName === "Computer")
+    overlay.classList.remove("hidden")
   }
 
   function handleComputerTurn() {
@@ -123,7 +130,7 @@ function initBattlePhase(player, computerPlayer) {
     }
 
     isPlayerTurn = false
-    setTimeout(handleComputerTurn, 500) 
+    setTimeout(handleComputerTurn, 500)
   }
 
   computerMatrixEl.querySelectorAll(".cell").forEach(cell =>

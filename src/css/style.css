@@ -204,3 +204,61 @@ button:disabled {
 #startGameBtn:hover:not(:disabled) {
   background-color: #16a34a;
 }
+
+/* Game over message */
+#game-over-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  animation: fade-in 0.25s ease;
+}
+
+#game-over-overlay.hidden {
+  display: none;
+}
+
+.game-over-card {
+  background-color: #1e293b;
+  border: 2px solid #334155;
+  border-radius: 12px;
+  padding: 40px 64px;
+  text-align: center;
+  animation: pop-in 0.25s ease;
+}
+
+#game-over-message {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+#game-over-overlay.winner .game-over-card {
+  border-color: #22c55e;
+}
+
+#game-over-overlay.winner #game-over-message {
+  color: #22c55e;
+}
+
+#game-over-overlay.loser .game-over-card {
+  border-color: #ef4444;
+}
+
+#game-over-overlay.loser #game-over-message {
+  color: #ef4444;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pop-in {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
