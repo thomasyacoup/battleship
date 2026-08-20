@@ -32,11 +32,13 @@ class ComputerPlayer extends Player {
   }
 
   randomAttack(otherPlayer) {
-    const row = Math.floor(Math.random() * 10)
-    const col = Math.floor(Math.random() * 10)
+    let row, col
+    do {
+      row = Math.floor(Math.random() * 10)
+      col = Math.floor(Math.random() * 10)
+    } while (otherPlayer.gameBoard.matrix[row][col].isShot)
 
     this.attack(otherPlayer, col, row)
-
     return [row, col]
   }
 }
