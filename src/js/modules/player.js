@@ -36,6 +36,8 @@ class ComputerPlayer extends Player {
     const col = Math.floor(Math.random() * 10)
 
     this.attack(otherPlayer, col, row)
+
+    return [row, col]
   }
 }
 
