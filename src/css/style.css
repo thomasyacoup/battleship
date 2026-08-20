@@ -39,12 +39,41 @@ body {
   display: none;
 }
 
-.cell { 
+.cell {
   height: 40px;
   width: 40px;
   background-color: white;
   border-radius: 5px;
-  }
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+/* Hover feedback while placing ships on your own board */
+.player.matrix .cell:not(:has(.ship)):hover {
+  background-color: #cbd5e1;
+  cursor: pointer;
+}
+
+/* Hover feedback while attacking the computer's board */
+.computer.matrix .cell:not(.damaged):hover {
+  background-color: #93c5fd;
+  cursor: crosshair;
+}
+
+.computer.matrix .cell.damaged {
+  cursor: default;
+}
+
+/* Shake + flash red when a ship placement attempt is invalid */
+.cell.invalid-placement {
+  animation: shake 0.3s ease;
+  background-color: #f87171 !important;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
 
 .ships {
   width: fit-content;
@@ -58,7 +87,6 @@ body {
   }
 }
 
-
 .ship {
   width: fit-content;
   height: fit-content;
@@ -66,30 +94,113 @@ body {
   display: flex;
   gap: 4px;
   z-index: 101;
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.1s ease;
+
+  &:hover {
+    filter: brightness(1.2);
+  }
 
   &.vertical {
     flex-direction: column;
   }
 
-  &.active {
+  &.active > .cell {
     background-color: red;
+  }
 
-    & > .cell {
-      background-color: red;
+  &.placed {
+    cursor: default;
+    z-index: 1;
+    filter: none;
+
+    &:hover {
+      filter: none;
     }
   }
 
   & > .cell {
-    background-color: blue;
+    background-color: #3b82f6;
     z-index: 100;
+    pointer-events: none; /* clicks always go to the .ship wrapper, not each mini cell */
   }
 }
 
+/* Miss: cell was attacked but had no ship */
 .cell.damaged {
-  background-color: pink !important;
+  background-color: #cbd5e1 !important;
+  position: relative;
 }
 
-.cell.damaged.has-ship, .cell.damaged:has(.ship){
+.cell.damaged::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #64748b;
+  transform: translate(-50%, -50%);
+}
+
+/* Hit: cell was attacked and had a ship */
+.cell.damaged.has-ship,
+.cell.damaged:has(.ship) {
   z-index: 100;
-  background-color: red !important;
+  background-color: #ef4444 !important;
+}
+
+.cell.damaged.has-ship::after,
+.cell.damaged:has(.ship)::after {
+  content: "✕";
+  background-color: transparent;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  color: #f8fafc;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.placement-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.btns {
+  display: flex;
+  gap: 12px;
+}
+
+button {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background-color: #3b82f6;
+  color: #f8fafc;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+button:disabled {
+  background-color: #334155;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+#startGameBtn {
+  background-color: #22c55e;
+}
+
+#startGameBtn:hover:not(:disabled) {
+  background-color: #16a34a;
 }
