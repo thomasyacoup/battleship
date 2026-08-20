@@ -9,11 +9,87 @@ body {
   background-color: #0f172a;
   color: #f8fafc;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 #app {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  gap: 50px;
+}
+
+.matrix-container {
+  display: flex;
+  gap: 32px;
+}
+
+.matrix {
+  width: fit-content;
+  height: fit-content;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: repeat(10, auto);
+  padding: 4px;
+  border-radius: 5px;
+  border: solid white 2px;
+}
+
+.matrix.computer {
+  display: none;
+}
+
+.cell { 
+  height: 40px;
+  width: 40px;
+  background-color: white;
+  border-radius: 5px;
+  }
+
+.ships {
+  width: fit-content;
+  justify-content: end;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  &:has(.vertical) {
+    flex-direction: row;
+  }
+}
+
+
+.ship {
+  width: fit-content;
+  height: fit-content;
+  border-radius: 5px;
+  display: flex;
+  gap: 4px;
+  z-index: 101;
+
+  &.vertical {
+    flex-direction: column;
+  }
+
+  &.active {
+    background-color: red;
+
+    & > .cell {
+      background-color: red;
+    }
+  }
+
+  & > .cell {
+    background-color: blue;
+    z-index: 100;
+  }
+}
+
+.cell.damaged {
+  background-color: pink !important;
+}
+
+.cell.damaged.has-ship, .cell.damaged:has(.ship){
+  z-index: 100;
+  background-color: red !important;
 }
